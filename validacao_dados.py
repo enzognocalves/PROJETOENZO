@@ -61,10 +61,19 @@ def navegar_para_tentativas(driver):
     try:
         wait = WebDriverWait(driver, 15)
         
-        logging.info("Clicando em 'Digital Uniguairacá'.")
-        btn_moodle = wait.until(EC.element_to_be_clickable(
-            (By.XPATH, "/html/body/div[2]/div[2]/div[2]/div/div[2]/div/div[3]/button")))
-        btn_moodle.click()
+
+        try:
+            logging.info("Clicando em 'Digital Uniguairacá'.")
+            botao = driver.find_element(By.XPATH, "//button[contains(., 'Digital UniGuairacá')]")
+            botao.click()
+
+        except:
+            logging.info("Clicando em 'Digital Uniguairacá'.")
+            botao = driver.find_element(By.XPATH, "//button[.//small[contains(text(), 'Digital UniGuairacá')]]")
+            botao.click()
+
+            pass
+
         
         # Espera pela nova aba e muda o foco
         wait.until(EC.number_of_windows_to_be(2))
